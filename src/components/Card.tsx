@@ -1,26 +1,22 @@
+// @flow
 import * as React from 'react';
+import './Card.css';
+type Props = {
+  title : string,
+  price : number,
+  src : string,
+  addToCart : (t : any) => void,
+};
 
-export interface ICardProps {
-    title : string,
-    price : number,
-    src : string
-}
-
-export default class Card extends React.Component<ICardProps> {
-
-    addToCart(title : string) {
-        console.log(title);
-    };
-  public render() {
-    return (
-      <div>
-        <img src={this.props.src} alt={this.props.title} />
-        <div className="infor">
-            <strong className="title">{this.props.title}</strong>
-            <p>Price : <span className="price">{'$' + this.props.price}</span></p>
-            <button onClick={() => this.addToCart(this.props.title)}>ADD TO CART</button>
-        </div>
+export function Card(props: Props) {
+  return (
+    <div className='card'>
+      <img src={props.src} alt={props.title} />
+      <div className="infor">
+          <strong className="title">{props.title}</strong>
+          <p>Price : <span className="price">{'$' + props.price}</span></p>
+          <button onClick={props.addToCart}>ADD TO CART</button>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
