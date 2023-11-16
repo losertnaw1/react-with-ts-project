@@ -1,0 +1,8 @@
+.cart {
+    max-width: calc(25% - 50px);
+}
+
+.name {
+    font-size: large;
+    font-weight: bolder;
+}

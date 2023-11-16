@@ -1,9 +1,22 @@
-button {
+/* button {
   padding: 5%;
+}
+
+.main-shop {
+  display: flex;
+}
+
+.products-and-cart {
+  max-width: 75%;
 }
 
 h1 {
   text-align: center;
+}
+
+h3 {
+  font-size: larger;
+  font-weight: bold;
 }
 
 .main-shop .products .card-list {
@@ -16,13 +29,13 @@ h1 {
   flex-direction: row;
 }
 
-.main-shop .shopping-carts .cart-list .cart-shop {
-  min-width: 10em;
+.main-shop .shopping-carts .cart-list .cart {
+  min-width: calc(25% - 50px);
   border: 1px solid lightblue;
   padding: 2%;
   margin: 5px;
 }
 
-.main-shop .shopping-carts .cart-list .cart-shop button {
+.main-shop .shopping-carts .cart-list .cart button {
   margin-right: 5px;
-}
+} */
