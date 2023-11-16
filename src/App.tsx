@@ -3,9 +3,9 @@ import './App.css'
 import { Card } from './components/Card'
 import { Cart } from './components/Cart'
 
-const products = [
+let initProducts = [
   {
-    id: 1,
+    id: 0,
     title: 'Cauliflower',
     price: 15,
     src: '/Broccoli2.jpg',
@@ -13,7 +13,7 @@ const products = [
     total: 0
   },
   {
-    id: 2,
+    id: 1,
     title: 'Carrot',
     price: 5,
     src: '/carrot.jpg',
@@ -21,7 +21,7 @@ const products = [
     total: 0
   },
   {
-    id: 3,
+    id: 2,
     title: 'Radish',
     price: 9,
     src: '/cucai.jpg',
@@ -32,8 +32,21 @@ const products = [
 
 function App() {
 
-  function addToCart(e: Event) {
-    console.log(e);
+  const [products, setProducts] = useState(initProducts);
+
+  function addToCart(id: number) {
+
+    const newProducts = products.map(e => {
+      if(e.id !== id) return e
+      else {
+        e.quantity += 1;
+        e.total = e.quantity*e.price;
+        return e;
+      }
+    });
+    
+    setProducts(newProducts);
+    
   }
   
   return (
@@ -50,7 +63,7 @@ function App() {
                 title={e.title}
                 price={e.price}
                 src={e.src}
-                addToCart={(e) => addToCart(e)}
+                addToCart={() => addToCart(e.id)}
               >
               </Card>)
             })}
