@@ -6,7 +6,7 @@ import Home from './components/Home'
 
 
 const App:React.FC = () => (
-  <BrowserRouter>
+  	<BrowserRouter>
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/admin" element={<Admin />} />

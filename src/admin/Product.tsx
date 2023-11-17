@@ -3,10 +3,10 @@ import * as React from 'react';
 type Props = {
   
 };
-export function Setting(props: Props) {
+export function Product(props: Props) {
   return (
     <div>
-      A feature page. Haven't done anything yet
+      How many products you want to sell
     </div>
   );
 };
