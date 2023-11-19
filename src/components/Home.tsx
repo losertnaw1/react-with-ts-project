@@ -4,6 +4,9 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Card } from './Card'
 import { Cart } from './Cart'
 import { LandingPage } from './LandingPage'
+import LogoClouds from './LogoClouds'
+import Blog from './Blog'
+import Stat from './Stat'
 
 let initProducts = [
   {
@@ -24,41 +27,41 @@ let initProducts = [
   },
   {
     id: 2,
-    title: 'Radish',
+    title: 'Red Leaf Lettuce',
     price: 9,
-    src: '/cucai.jpg',
+    src: 'https://orgaci-store-demo.myshopify.com/cdn/shop/products/pro18.jpg?v=1683777002',
     quantity: 0,
     total: 0
   },
   {
     id: 3,
-    title: 'Radish',
+    title: 'Cabbage',
     price: 9,
-    src: '/cucai.jpg',
+    src: 'https://orgaci-store-demo.myshopify.com/cdn/shop/products/pro24.jpg?v=1683791686',
     quantity: 0,
     total: 0
   },
   {
     id: 4,
-    title: 'Radish',
+    title: 'Fresh Cucumber',
     price: 9,
-    src: '/cucai.jpg',
+    src: 'https://orgaci-store-demo.myshopify.com/cdn/shop/products/pro16.jpg?v=1683777006',
     quantity: 0,
     total: 0
   },
   {
     id: 5,
-    title: 'Radish',
+    title: "Green Pee's",
     price: 9,
-    src: '/cucai.jpg',
+    src: 'https://orgaci-store-demo.myshopify.com/cdn/shop/products/pro15.jpg?v=1683777008',
     quantity: 0,
     total: 0
   },
   {
     id: 6,
-    title: 'Radish',
+    title: 'Eggplant',
     price: 9,
-    src: '/cucai.jpg',
+    src: 'https://orgaci-store-demo.myshopify.com/cdn/shop/products/pro49.jpg?v=1683776976',
     quantity: 0,
     total: 0
   },
@@ -76,7 +79,7 @@ function Home() {
 
   const [products, setProducts] = useState(initProducts);
   const [lastTotal, setLastTotal] = useState(0);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   function addToCart(id: number) {
 
@@ -130,11 +133,11 @@ function Home() {
 
   return (
     <>
-      <LandingPage isDisplay={!open} onNavClick={() => { }}></LandingPage>
+      <LandingPage isDisplay={!open} openBag={() => { setOpen(true) }}></LandingPage>
       <div className="main-shop">
         <div className="bg-white">
           <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-            <h3 id='products' className='text-2xl font-bold tracking-tight text-gray-900'>Products</h3>
+            <h3 id='products' className='text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl'>Products</h3>
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
               {products.map(e => {
                 return (
@@ -250,8 +253,10 @@ function Home() {
           </Transition.Root>
           </div>
         </div>
+        <Blog></Blog>
+        <Stat></Stat>
+        <LogoClouds></LogoClouds>
       </div>
-
     </>
   )
 }

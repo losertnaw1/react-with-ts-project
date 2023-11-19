@@ -1,19 +1,18 @@
 // @flow
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon, ShoppingBagIcon } from '@heroicons/react/24/outline'
 import './LandingPage.css'
 
 type Props = {
     isDisplay: boolean,
-    onClick : (e : any) => void,
+    openBag: (e: any) => void,
 };
 
 const navigation = [
     { name: 'Product', href: '#products' },
     { name: 'Features', href: '#' },
     { name: 'Marketplace', href: '#' },
-    { name: 'Your Carts', href: '#' },
 ];
 
 export function LandingPage(props: Props) {
@@ -50,9 +49,23 @@ export function LandingPage(props: Props) {
                         ))}
                     </div>
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                        {props.isDisplay ? (<a href="/admin" className="text-sm font-semibold leading-6 text-gray-900">
-                            Log in <span aria-hidden="true">&rarr;</span>
-                        </a>) : ''}
+                        {props.isDisplay ? (
+                            <div className='lg:flex lg:gap-x-12'>
+                                <div onClick={props.openBag} className="ml-4 flow-root lg:ml-6">
+                                    <a href="#" className="group -m-2 flex items-center p-2">
+                                        <ShoppingBagIcon
+                                            className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                            aria-hidden="true"
+                                        />
+                                        <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                                        <span className="sr-only">items in cart, view bag</span>
+                                    </a>
+                                </div>
+                                <a href="/admin" className="text-sm font-semibold leading-6 text-gray-900">
+                                    Log in <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            </div>
+                        ) : ''}
                     </div>
                 </nav>
                 <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>

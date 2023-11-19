@@ -29,5 +29,5 @@
 }
 
 .group:hover > .mt-4 > .add-to-cart{
-    opacity: .75;
+    opacity: 1;
 }
