@@ -6,7 +6,7 @@ const stats = [
 
 export default function Stat() {
     return (
-        <>
+        <div id="stats">
             <div className='mx-auto max-w-7xl px-6 lg:px-8'>
                 <h2 className="max-w-2xl text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our amazing stats</h2>
             </div>
@@ -24,6 +24,6 @@ export default function Stat() {
                     </dl>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
