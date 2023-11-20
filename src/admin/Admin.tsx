@@ -46,7 +46,7 @@ const listSidebar = [
 
 const Admin: React.FC = () => {
   return (
-    <div>
+    <div className='admin-body'>
       <div className="sidebar">
         <ul>
           <li className="logo">
@@ -60,7 +60,7 @@ const Admin: React.FC = () => {
               return (
                 <li key={e.text}>
                   <a href={e.link}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="icon w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d={e.icon} />
                     </svg>
                     <div className="text">{e.text}</div>

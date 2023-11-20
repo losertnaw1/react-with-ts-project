@@ -77,15 +77,21 @@ class MainShop extends React.Component {
                 },
             ],
             lastTotal: 0,
+            cashInput : 0,
+            cashReceived: 0,
+            cashRemain: 0,
+            isDone : false,
+            totalCashReceived: 0,
+            cashReturn: 0,
         };
 
         this.addToCart = this.addToCart.bind(this);
         this.removeCart = this.removeCart.bind(this);
         this.minusCart = this.minusCart.bind(this);
+        this.sendTotalQtt = this.sendTotalQtt.bind(this);
     }
 
-    addToCart(id: number, func: Function) {
-        func();
+    addToCart(id: number) {
         const { products } = this.state;
         const newProducts = products.map((e: any) => {
             if (e.id !== id) return e;
@@ -99,11 +105,13 @@ class MainShop extends React.Component {
             }
         });
 
+        const newQtt = products.reduce((quantt: number, product: any) => product.quantity + quantt, 0);
+
+        this.sendTotalQtt(newQtt);
         this.setState({ products: newProducts });
     }
 
-    removeCart(id: number, func: Function) {
-        func();
+    removeCart(id: number) {
         const { products } = this.state;
         const newProducts = products.map((e: any) => {
             if (e.id !== id) return e;
@@ -117,11 +125,13 @@ class MainShop extends React.Component {
             }
         });
 
+        const newQtt = products.reduce((quantt: number, product: any) => product.quantity + quantt, 0);
+
+        this.sendTotalQtt(newQtt);
         this.setState({ products: newProducts });
     }
 
-    minusCart(id: number, func: Function) {
-        func();
+    minusCart(id: number) {
         const { products } = this.state;
         const newProducts = products.map((e: any) => {
             if (e.id !== id) return e;
@@ -135,12 +145,28 @@ class MainShop extends React.Component {
             }
         });
 
+        const newQtt = products.reduce((quantt: number, product: any) => product.quantity + quantt, 0);
+
+        this.sendTotalQtt(newQtt);
         this.setState({ products: newProducts });
     }
 
+    sendTotalQtt(value : number) {
+        this.props.sendTotalQtt(value);
+    }
+
+    handleCashPay(cashInput:number) {
+        const cashRemain = this.state.lastTotal -= cashInput;
+        this.setState({cashReceived : cashInput});
+        this.setState({cashRemain : cashRemain <= 0 ? 0 : cashRemain});
+        this.setState({isDone : cashRemain <= 0 ? false : true});
+        this.setState({totalCashReceived : this.state.totalCashReceived += cashInput});
+        this.setState({cashReturn : cashRemain <= 0 ? -cashRemain : 0});
+    }
+
     render() {
-        const { products, lastTotal } = this.state;
-        const { open, setOpen, setClose, setTotalQuantt } = this.props;
+        const { products, lastTotal, cashInput, cashReceived, cashRemain, isDone, totalCashReceived, cashReturn } = this.state;
+        const { open, setOpen, setClose } = this.props;
 
         return (
             <div className="main-shop">
@@ -155,7 +181,7 @@ class MainShop extends React.Component {
                                         title={e.title}
                                         price={e.price}
                                         src={e.src}
-                                        addToCart={() => this.addToCart(e.id, setTotalQuantt)}
+                                        addToCart={() => this.addToCart(e.id)}
                                     >
                                     </Card>)
                             })}
@@ -216,9 +242,9 @@ class MainShop extends React.Component {
                                                                             quantity={e.quantity}
                                                                             imageSrc={e.src}
                                                                             total={lastTotal}
-                                                                            onPlus={() => this.addToCart(e.id, setTotalQuantt)}
-                                                                            onMinus={() => this.minusCart(e.id, setTotalQuantt)}
-                                                                            onRemove={() => this.removeCart(e.id, setTotalQuantt)}
+                                                                            onPlus={() => this.addToCart(e.id)}
+                                                                            onMinus={() => this.minusCart(e.id)}
+                                                                            onRemove={() => this.removeCart(e.id)}
                                                                         ></Cart>
                                                                     );
                                                                 }
@@ -232,10 +258,25 @@ class MainShop extends React.Component {
                                                                 <p>Subtotal</p>
                                                                 <p>${lastTotal}</p>
                                                             </div>
-                                                            <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                                                            <p className="mt-0.5 text-sm text-gray-500">Input cash below to checkout</p>
+                                                            <input
+                                                                type="text"
+                                                                name="price"
+                                                                id="price"
+                                                                className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                                placeholder="0.00"
+                                                                onChange={(e) => this.setState({cashInput : Number(e.target.value)}) }
+                                                            />
+                                                            <p className="mt-0.5 text-sm text-gray-500">Cash received: ${cashReceived}</p>
+                                                            <p className="mt-0.5 text-sm text-gray-500">Remaining cash: ${cashRemain}</p>
+                                                            {isDone ? (<p className="mt-0.5 text-sm text-gray-500">Please pay the remaining cash !</p>) : ''}
+                                                            <p className="mt-0.5 text-sm text-gray-500 border-t border-gray-200">Total cash received : ${totalCashReceived}</p>
+                                                            <p className="mt-0.5 text-sm text-gray-500">Cash return: ${cashReturn}</p>
+
                                                             <div className="mt-6">
                                                                 <a
                                                                     href="#"
+                                                                    onClick={() => this.handleCashPay(cashInput)}
                                                                     className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                                                 >
                                                                     Checkout

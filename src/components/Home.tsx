@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LandingPage } from './LandingPage';
 import Header from './Header';
 import MainShop from './MainShop';
@@ -15,6 +15,7 @@ class Home extends React.Component {
 
     this.setOpen = this.setOpen.bind(this);
     this.setIsLanding = this.setIsLanding.bind(this);
+    this.setTotalQtt = this.setTotalQtt.bind(this);
   }
 
   setOpen() {
@@ -23,6 +24,10 @@ class Home extends React.Component {
 
   setIsLanding() {
     this.setState({ isLanding: true });
+  }
+
+  setTotalQtt(childvalue : number) {
+    this.setState({ totalQtt : childvalue});
   }
 
   render() {
@@ -41,9 +46,7 @@ class Home extends React.Component {
           <LandingPage setIsLanding={() => this.setState({ isLanding: false })}></LandingPage>
         ) : (
           <MainShop
-            setTotalQuantt={() => {
-              console.log('Actual');
-            }}
+            sendTotalQtt={this.setTotalQtt}
             open={open}
             setOpen={() => this.setState({ open: true })}
             setClose={() => this.setState({ open: false })}
