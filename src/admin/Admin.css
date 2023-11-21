@@ -35,6 +35,11 @@
     position: relative;
     list-style: none;
     width: 100%;
+    border-radius: 20px 0px 0px 20px;
+}
+
+.sidebar ul li.active {
+    background-color: #fff;
 }
 
 .sidebar ul li a {
@@ -44,13 +49,27 @@
     display: flex;
     text-decoration: none;
     color: #fff;
+    align-items: center;
 }
 
-.sidebar ul li a .icon {
+.sidebar ul li.active a {
+    color: #333;
+}
+
+.sidebar ul li a .icon svg{
     position: relative;
     display: block;
     min-width: 60px;
+    height: 30px;
+    line-height: 70px;
+    text-align: center;
+}
+
+.sidebar ul li a .title {
+    position: relative;
+    display: block;
+    padding-left: 10px;
     height: 60px;
     line-height: 60px;
-    text-align: center;
+    white-space: normal;
 }
